@@ -1,0 +1,89 @@
+@mixin btn {
+    border-style: none;
+    cursor: pointer;
+    &:focus {
+        outline: none;
+    }
+}
+
+.main-button {
+    @include btn;
+    border-radius: 3px;
+    color: white;
+    padding: 5px 10px;
+    min-width: 120px;
+    background-color: $color__project-theme;
+    @include font__body-font;
+    font-size: 1.0rem;
+    display: inline-block;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 2px 10px;
+    &:hover {
+        background-color: lighten($color__project-theme, 3%);
+    }
+    &:active {
+        background-color: darken($color__project-theme, 3%);
+    }
+}
+
+.poll-button {
+    @include btn;
+    border-radius: 3px;
+    color: white;
+    padding: 5px 10px;
+    background-color: $color__project-theme;
+    @include font__body-font;
+    font-size: 1.0rem;
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin-bottom: $structure__font-pad_horiz;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 2px 10px;
+    &:hover {
+        background-color: $color__project-contrast;
+        color: $color__body-font-color;
+    }
+    &:active {
+        background-color: darken($color__project-contrast, 10%);
+        color: $color__body-font-color;
+    }
+}
+
+.round-button {
+    @include btn;
+    border-radius: 50%;
+    color: white;
+    background-color: $color__project-theme;
+    @include font__body-font;
+    // font-size: 1.0rem;
+    display: inline-block;
+    &:hover {
+        background-color: lighten($color__project-theme, 3%);
+    }
+    &:active {
+        background-color: darken($color__project-theme, 3%);
+    }
+}
+
+.add-button {
+    height: 22px;
+    width: 22px;
+    font-style: bold;
+    font-size: 1.0rem;
+    padding: 0 0 0;
+    margin-top: $structure__font-pad_horiz;
+}
+
+.btn-right {
+    float: right;
+    margin-left: $structure__font-pad_horiz;
+}
+
+.btn-cancel {
+    background-color: $color__cancel-button;
+    &:hover {
+        background-color: lighten($color__cancel-button, 3%);
+    }
+    &:active {
+        background-color: darken($color__cancel-button, 3%);
+    }
+}

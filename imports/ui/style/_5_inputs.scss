@@ -1,0 +1,65 @@
+.searchbox-form {
+
+    margin: 3rem auto 0;
+    max-width: 80%;
+
+    input,
+    button,
+    .searchbox-form:before {
+      padding: .35em .75em;
+      border: none;
+      font-size: 1.1rem;
+      text-decoration: none;
+    }
+
+    .field {
+        /* use flex layout */
+        display: flex;
+
+        .searchbox-text {
+            // Shrink and grow as needed, but never so small that we can't read the placeholder
+            flex: 1 0 8em;
+
+            // Make sure the placeholder isn't poorly cut off
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            background: $color__project-inverse;
+            &:focus {
+                background: white;
+            }
+        }
+
+        .searchbox-button {
+            // Never grow or shrink
+            flex: 0 0 auto;
+
+            border-radius: 0 3px 3px 0;
+            background: $color__project-theme;
+            @include font__head-font;
+            color: $color__project-inverse;
+            cursor: pointer;
+        }
+    }
+
+    .field-is-search:before {
+        // this targets the search icon
+
+        // Don't shrink or grow and use a default size
+        flex: 0 0 2.75em;
+
+        // Use flexbox to center the icon
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        // style border and font
+        border-radius: 3px 0 0 3px;
+        @include font__font-awesome;
+        background: lighten($color__project-theme, 5%);
+        color: lighten($color__project-theme, 40%);
+        content: "\f002";
+    }
+
+}

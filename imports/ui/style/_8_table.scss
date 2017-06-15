@@ -1,0 +1,21 @@
+table {
+    min-width: 80%;
+    tr.table-content {
+        font-size: 0.9rem;
+        border-top: $border__basic;
+
+        td.table-cat {
+            padding-top: 4px;
+            padding-right: 0.5em;
+            font-weight: 500;
+        }
+        td.cell-content {
+            padding-bottom: 4px;
+        }
+    }
+    tr.table-content-last {
+        td.cell-content {
+            padding-bottom: 15px;
+        }
+    }
+}

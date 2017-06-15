@@ -1,0 +1,196 @@
+$navbar__height: 54px;
+$navbar__collapse_height: 50px;
+$navbar__space: 76px;
+
+button.menu-toggle-button {
+    float: right;
+    width: 45px;
+    margin: 0 auto;
+    padding-left: 9px;
+    margin-right: 9px;
+    margin-top: 0.6rem;
+    background-color: $navbar__bgcolor;
+    border: 1px solid $navbar__hamburger-outline-color;
+
+    &:after {
+        clear: right;
+    };
+
+    div.bar-icon {
+        background-color: $navbar__hamburger-lines-color;
+        border-radius: 2px 2px 2px 2px;
+        height: 2px;
+        margin-top: 0.4em;
+        margin-bottom: 0.4em;
+        width: 25px;
+    }
+    border-radius: 4px 4px 4px 4px;
+    @include for-tablet-portrait-up {
+        display: none;
+    }
+}
+
+.navbar-collapse,
+.navbar-top-menu {
+    // display is default none, governed then by media queries
+    display: none;
+    // colors common to both
+    background-color: $navbar__bgcolor;
+
+    a,
+    li,
+    ul {
+        color: $navbar__link-color;
+    }
+
+    a:hover {
+        color: $navbar__link-color-alt;
+    }
+    // font sizes common to both
+    ul ul a {
+        font-size: 111%;
+    }
+
+    ul ul ul li a {
+        font-size: 121%;
+    }
+    //other common styling
+    ul {
+        list-style: none;
+        margin: 0;
+        padding-left: 0;
+    }
+
+    a {
+        cursor: pointer;
+    }
+}
+
+.navbar-top-menu {
+    @include for-tablet-portrait-up {
+        float: right;
+        display: inline;
+    }
+
+    ul {
+        ul {
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+            float: left;
+            position: absolute;
+            top: 2.6em;
+            left: -999em;
+            z-index: 99999;
+            background-color: $navbar__dropdown-bgcolor;
+            border: none;
+            border-radius: 5px;
+
+            ul {
+                left: -999em;
+                top: 0;
+
+                li {
+                    width: 150px;
+                }
+            }
+
+            li {
+                &.focus > ul,
+                &:hover > ul {
+                    // this is what brings the sub-menu and aligns left of box
+                    right: 100%;
+                    // top: auto;
+                }
+                padding: 0;
+                margin-bottom: 0;
+
+                &:last-of-type {
+                    margin-bottom: 1.0rem;
+                }
+                padding: 0.8em 0.5em 0;
+            }
+
+            a {
+                width: 150px;
+            }
+        }
+
+        li.focus > ul,
+        li:hover > ul {
+            // this is the line that over-rides the -999em and makes it visible!
+            left: auto;
+        }
+    }
+
+    li {
+        float: left;
+        position: relative;
+        padding: 0.8em 0.5em 0;
+    }
+
+    a {
+        display: block;
+        text-decoration: none;
+    }
+}
+
+.navbar-collapse {
+    position: fixed;
+    top: $navbar__collapse-height;
+    width: 100%;
+    overflow: auto;
+}
+
+#menu-copy,
+#menu-copy.container,
+#menu-copy.container ul,
+.navbar-collapse {
+    max-height: 75%;
+}
+
+#menu-copy {
+    ul {
+        display: block;
+        padding: 0.8em 0.5em;
+
+        ul {
+            display: none;
+            z-index: 99999;
+            background-color: $navbar__bgcolor;
+
+            ul {
+                display: none;
+            }
+        }
+    }
+
+    a {
+        text-decoration: none;
+    }
+}
+
+#login-buttons {
+    position: relative;
+    bottom: 1px;
+
+    .login-display-name {
+        @include font__body-font;
+    }
+
+    .single-login-button {
+        @include font__body-font;
+        background-color: $color__project-theme;
+        // border-color: darken($color__project-theme, 10%);
+        border-color: $color__project-inverse;
+        &:hover {
+            background-color: lighten($color__project-theme, 3%);
+        }
+        &:active {
+            background-color: darken($color__project-theme, 3%);
+        }
+    }
+
+    .login-image {
+        background-image: url('/images/Twitter_Logo_White.png');
+    }
+
+}

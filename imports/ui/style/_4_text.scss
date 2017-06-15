@@ -1,0 +1,50 @@
+body {
+    @include font__body-font;
+    font-size: $font__body-font-size;
+    line-height: $font__line-height-body;
+    color: $color__body-font-color;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @include font__head-font;
+    color: $color__title-font-color;
+    margin-bottom: $structure__font-pad_horiz;
+}
+
+h1 {
+    font-size: $font__h1-font-size;
+}
+
+h2 {
+    font-size: $font__h2-font-size;
+}
+
+h3 {
+    font-size: $font__h3-font-size;
+}
+
+h4 {
+    font-size: $font__h4-font-size;
+}
+
+p.lead {
+    font-size: 1.2rem;
+}
+
+strong {
+    font-weight: 400;
+}
+
+em {
+    font-style: italic;
+}
+
+sup {
+    vertical-align: super;
+    font-size: 0.7em;
+}

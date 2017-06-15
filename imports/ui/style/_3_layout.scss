@@ -1,0 +1,31 @@
+$structure__font-pad_horiz: 10px;
+$structure__container-pad-bottom: 20px;
+
+body {
+    background-color: $color__bg-color;
+}
+
+.container {
+
+    padding: $structure__font-pad_horiz;
+
+    @include for-tablet-landscape-up {
+        width: 890px;
+        margin: 0 auto;
+        padding-left: 0;
+        padding-left: 0;
+    }
+
+}
+
+.mast-head {
+    background-color: $navbar__bgcolor;
+    .brand {
+        display: inline-block;
+        font-size: 1.5rem;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        // color: $color__project-theme;
+        color: $color__project-inverse;
+    }
+}

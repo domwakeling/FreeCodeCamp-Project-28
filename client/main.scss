@@ -1,0 +1,49 @@
+/*********************************************
+/ 0. RESET
+/********************************************/
+@import "../imports/ui/style/_0_reset.scss";
+
+/*********************************************
+/ 1. GENERAL VARIABLES
+/********************************************/
+@import "../imports/ui/style/_1_colors.scss";
+@import "../imports/ui/style/_1_fonts.scss";
+@import "../imports/ui/style/_1_typesize.scss";
+
+/*********************************************
+/ 2. RESPONSIVE VARIABLES & MIXINS
+/********************************************/
+@import "../imports/ui/style/_2_responsive.scss";
+
+/*********************************************
+/ 3. PAGE LAYOUT
+/********************************************/
+@import "../imports/ui/style/_3_layout.scss";
+
+/*********************************************
+/ 4. APPLY TEXT STYLES, COLORS, SIZES
+/********************************************/
+@import "../imports/ui/style/_4_text.scss";
+
+/*********************************************
+/ 5. MINOR STYLE COMPONENTS
+/********************************************/
+@import "../imports/ui/style/_5_links.scss";
+@import "../imports/ui/style/_5_buttons.scss";
+@import "../imports/ui/style/_5_borders.scss";
+@import "../imports/ui/style/_5_inputs.scss";
+@import "../imports/ui/style/_5_polls.scss";
+
+/*********************************************
+/ 8. MAJOR STYLE COMPONENTS
+/********************************************/
+@import "../imports/ui/style/_8_bars.scss";
+@import "../imports/ui/style/_8_navigation.scss";
+@import "../imports/ui/style/_8_table.scss";
+@import "../imports/ui/style/_8_modal.scss";
+@import "../imports/ui/style/_8_footer.scss";
+
+/*********************************************
+/ 9. UTILITIES
+/********************************************/
+@import "../imports/ui/style/_9_utils.scss";

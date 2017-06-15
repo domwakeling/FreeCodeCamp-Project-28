@@ -1,0 +1,24 @@
+.pollTitle {
+    background-color: $color__project-theme;
+    color: $color__project-inverse;
+    border-radius: 3px;
+    padding: 3px 3px 3px 8px;
+
+    i {
+        float: right;
+        padding-top: 5px;
+        padding-right: 5px;
+        cursor: pointer;
+    }
+}
+
+#pollLink {
+    display: none;
+    margin-top: $structure__font-pad_horiz;
+    margin-bottom: $structure__font-pad_horiz;
+    font-size: 0.9rem;
+
+    .urlLink {
+        color: $color__project-theme;
+    }
+}

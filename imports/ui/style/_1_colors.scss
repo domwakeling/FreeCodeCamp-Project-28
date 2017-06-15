@@ -1,0 +1,24 @@
+$color__project-theme: #78C21E; //#82D121;
+$color__project-contrast: #005F8B;
+$color__project-inverse: lighten($color__project-theme, 58%);
+
+$color__bg-color: lighten($color__project-theme, 50%);
+$color__mid-grey: #666;
+$color__light-grey: #aaa;
+$color__very-light-grey: #eee;
+$color__cancel-button: #d00;
+
+$color__body-font-color: darken($color__project-theme, 40%);
+$color__title-font-color: darken($color__project-theme, 0%);
+$color__link-font-color: $color__project-theme;
+$color__link-font-color-alt: darken($color__project-theme, 10%);
+
+$navbar__hamburger-outline-color: $color__project-inverse;
+$navbar__hamburger-lines-color: $color__project-inverse;
+$navbar__bgcolor: $color__project-theme;
+$navbar__link-color: $color__project-inverse;
+$navbar__link-color-alt: lighten($color__project-theme, 62%);
+$navbar__dropdown-bgcolor: darken($color__project-theme, 45%);
+$navbar__dropdown-border_color: darken($color__project-theme, 48%);
+$navbar__dropdown-bgcolor: darken($color__project-theme, 45%);
+$navbar__dropdown-border-color: darken($color__project-theme, 48%);

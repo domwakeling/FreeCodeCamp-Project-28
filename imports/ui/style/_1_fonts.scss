@@ -1,0 +1,18 @@
+@import url( 'https://fonts.googleapis.com/css?family=Open+Sans:300,500');
+@import url( 'https://fonts.googleapis.com/css?family=Crete+Round');
+@import url( 'https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css' );
+
+@mixin font__head-font {
+    font-family:  'Crete Round', serif;
+}
+
+@mixin font__body-font {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+@mixin font__font-awesome {
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-style: normal;
+}
