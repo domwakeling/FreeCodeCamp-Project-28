@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 
@@ -7,7 +6,6 @@ export default class Submit extends React.Component {
 
     constructor(props) {
         super(props);
-        // this.handleChange = this.handleChange.bind(this);
         this.submitStock = this.submitStock.bind(this);
     }
 
@@ -24,26 +22,20 @@ export default class Submit extends React.Component {
                 icon: 'fa-warning'
             });
         } else {
-            Meteor.call('stocks.addOne', stockCode);
+            Meteor.call('stocks.upsert', stockCode, 'Whatever');
         }
     }
-
-    // handleChange() {
-    //     const stockCode = $('input[name=search]')[0].value;
-    //     this.props.changeCallback(stockCode);
-    // }
 
     render() {
         return (
             <div>
                 <div className='space-top' />
-                <h2 className='text-centre'>See where's hot near you</h2>
+                <h2 className='text-centre'>Enter a stock code</h2>
                 <form className='searchbox-form'>
                     <div className='field field-is-search'>
                         <input
                             className='searchbox-text'
                             name='search'
-                            // onChange={this.handleChange}
                             placeholder='What stock are you interested in?'
                             type='search'
                         />
@@ -61,9 +53,3 @@ export default class Submit extends React.Component {
         );
     }
 }
-
-// Submit.propTypes = {
-    // changeCallback: PropTypes.func,
-    // stockCode: PropTypes.string,
-    // submitCallback: PropTypes.func
-// };

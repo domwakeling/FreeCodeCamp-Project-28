@@ -5,6 +5,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 // import { Meteor } from 'meteor/meteor';
 import { Stocks } from '/imports/api/stocks.js';
 import Submit from './components/Submit.jsx';
+import StockBox from './components/Stock.jsx';
 // import Search from './components/Search.jsx';
 // import { Session } from 'meteor/session';
 // import { Bert } from 'meteor/themeteorchef:bert';
@@ -20,12 +21,11 @@ class IndexPage extends React.Component {
 
     renderCollection() {
         return this.props.stocks.map((entry, idx) => (
-            <p key={idx}>{entry.ticker}</p>
+            <StockBox displayName={entry.ticker} key={idx} />
         ));
     }
 
     render() {
-        // console.log('State', this.state.collection);
         return (
             <Layout>
                 <h4>Just to stop the props whinging</h4>

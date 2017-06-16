@@ -12,35 +12,22 @@ export const Stocks = new Mongo.Collection('stocks');
 
 Meteor.methods({
 
-    // 'votes.howMany'(businessId) {
-    //     var result = Votes.findOne({businessId: businessId});
-    //     if (result && result.going) {
-    //         return result.going.length;
-    //     } else {
-    //         return 0;
-    //     }
-    // },
-    //
-    // 'votes.isGoing'(businessId, userId) {
-    //     var result = Votes.findOne({businessId: businessId});
-    //     if (result && result.going) {
-    //         return result.going.indexOf(userId) >= 0;
-    //     } else {
-    //         return false;
-    //     }
-    // },
-    //
-    'stocks.addOne'(ticker) {
-        Stocks.insert(
+    'stocks.upsert'(ticker, stockHistory) {
+        Stocks.update(
+            {ticker: ticker},
+            {$set: {
+                lastUpdated: new Date(),
+                timeline: stockHistory
+                }
+            },
+            {upsert: true}
+        );
+    },
+
+    'stocks.delete'(ticker) {
+        Stocks.remove(
             {ticker: ticker},
         );
     }
-
-    // 'votes.removeOne'(businessId, userId) {
-    //     Votes.update(
-    //         {businessId: businessId},
-    //         {$pull: {going: userId}},
-    //     );
-    // }
 
 });

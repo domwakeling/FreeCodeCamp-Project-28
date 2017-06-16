@@ -9,6 +9,8 @@
 import { Meteor } from 'meteor/meteor';
 import { HTTP } from 'meteor/http';
 
+
+//GET https://www.quandl.com/api/v3/datasets/{database_code}/{dataset_code}/data.{return_format}
 var apiCallGet = function(apiUrl, authToken, callback) {
     try {
         var options = { headers: { Authorization: 'Bearer ' + authToken } };
