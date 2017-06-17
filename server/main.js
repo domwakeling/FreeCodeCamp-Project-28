@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import '/imports/api/stocks.js';
-// import '/imports/api/yelp.js';
+import '/imports/api/quandl.js';
 
 Meteor.startup(() => {
-  // code to run on server at startup
+    // At server startup, ensure we have a list of all the wiki entries
+    Meteor.call('stocks.ensureQuandlWikiExists');
 });

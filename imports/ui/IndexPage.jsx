@@ -16,8 +16,12 @@ class IndexPage extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(this.cursor);
     }
+
+    // componentWillMount() {
+    //     // ensureCurrentQuandlWiki();
+    //     Meteor.call('stocks.ensureQuandlWikiExists');
+    // }
 
     renderCollection() {
         return this.props.stocks.map((entry, idx) => (
@@ -37,6 +41,43 @@ class IndexPage extends React.Component {
 
 }
 
+// Utility function to ensure there is a current quandlWiki in our dbase
+// async function ensureCurrentQuandlWiki() {
+//     console.log('Starting function');
+//     Meteor.call('stocks.quandlWikiLastUpdated', function(err, date) {
+//         console.log('Received date', date);
+//         if (err) {
+//             console.log('ERROR:', err);
+//         } else if (!date || date.error) {
+//         // if (!date || date.error) {
+//             console.log(date);
+//             // our 'date' is actually an error
+//             upsertQuandlWiki();
+//         } else {
+//             console.log('Found a real date:', date);
+//         }
+//     });
+// }
+
+// async function upsertQuandlWiki() {
+//     console.log('Getting Quandl Wiki dataset');
+//     Meteor.call('quandl.getWikiKeys', function(err, res) {
+//         if (err) {
+//             console.log('ERROR:', err);
+//         } else {
+//             console.log('Processing dataset');
+//             const dataArray = res.datatable.data.map((arr) => arr[0]);
+//             Meteor.call('stocks.upsertWiki', dataArray, function(err, res) {
+//                 if (err) {
+//                     console.log('ERROR upserting:', err);
+//                 } else {
+//                     console.log('Dataset stored succesfully');
+//                 }
+//             });
+//         }
+//     });
+// }
+
 // Define props types, error checking and prevents eslint error reports
 IndexPage.propTypes = {
     history: PropTypes.object,
@@ -47,6 +88,6 @@ IndexPage.propTypes = {
 // Wrap the component in a createContainer component, so data can be rendered
 export default createContainer(() => {
     return {
-        stocks: Stocks.find({}).fetch()
+        stocks: Stocks.find({type: 'stock'}).fetch()
     };
 }, IndexPage);
