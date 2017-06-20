@@ -18,11 +18,6 @@ class IndexPage extends React.Component {
         super(props);
     }
 
-    // componentWillMount() {
-    //     // ensureCurrentQuandlWiki();
-    //     Meteor.call('stocks.ensureQuandlWikiExists');
-    // }
-
     renderCollection() {
         return this.props.stocks.map((entry, idx) => (
             <StockBox displayName={entry.ticker} key={idx} />
@@ -32,51 +27,17 @@ class IndexPage extends React.Component {
     render() {
         return (
             <Layout>
-                <h4>Just to stop the props whinging</h4>
                 <Submit />
-                {this.renderCollection()}
+                <div className='stockbox-container'>
+                    <div className='stockbox-flex'>
+                        {this.renderCollection()}
+                    </div>
+                </div>
             </Layout>
         );
     }
 
 }
-
-// Utility function to ensure there is a current quandlWiki in our dbase
-// async function ensureCurrentQuandlWiki() {
-//     console.log('Starting function');
-//     Meteor.call('stocks.quandlWikiLastUpdated', function(err, date) {
-//         console.log('Received date', date);
-//         if (err) {
-//             console.log('ERROR:', err);
-//         } else if (!date || date.error) {
-//         // if (!date || date.error) {
-//             console.log(date);
-//             // our 'date' is actually an error
-//             upsertQuandlWiki();
-//         } else {
-//             console.log('Found a real date:', date);
-//         }
-//     });
-// }
-
-// async function upsertQuandlWiki() {
-//     console.log('Getting Quandl Wiki dataset');
-//     Meteor.call('quandl.getWikiKeys', function(err, res) {
-//         if (err) {
-//             console.log('ERROR:', err);
-//         } else {
-//             console.log('Processing dataset');
-//             const dataArray = res.datatable.data.map((arr) => arr[0]);
-//             Meteor.call('stocks.upsertWiki', dataArray, function(err, res) {
-//                 if (err) {
-//                     console.log('ERROR upserting:', err);
-//                 } else {
-//                     console.log('Dataset stored succesfully');
-//                 }
-//             });
-//         }
-//     });
-// }
 
 // Define props types, error checking and prevents eslint error reports
 IndexPage.propTypes = {

@@ -13,13 +13,14 @@ export default class StockBox extends React.Component {
         this.boundCancelClicked = this.cancelClicked.bind(this);
         return (
             <div className='stockbox'>
-                <p>{this.props.displayName}</p>
                 <button
-                    className='round-button btn-cancel'
+                    className='round-button btn-cancel stockbox-cancel'
                     onClick={this.boundCancelClicked}
                     >
                     &times;
                 </button>
+                <h5 className='stockbox-name'>{this.props.displayName}</h5>
+                <p className='stockbox-detail'>this to be done</p>
             </div>
         );
     }

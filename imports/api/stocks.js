@@ -8,8 +8,7 @@ import { Mongo } from 'meteor/mongo';
  *  - key type with a value 'stock'
  *
  *  There is also a document with type 'wikiIndex' which stores all possible
- *  keys in the WIKI set at Quandl; this also has a lastUpdated value such
- *  that we know how old it is
+ *  keys in the WIKI set at Quandl
  */
 
 export const Stocks = new Mongo.Collection('stocks');
