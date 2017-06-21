@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
+import { Bert } from 'meteor/themeteorchef:bert';
 
 /*  Stocks are stored as documents with:
  *  - key ticker to their ticker shortcode
@@ -69,6 +70,35 @@ Meteor.methods({
                 }
             });
         }
+    },
+
+    'stocks.checkTickerExists'(ticker) {
+
+        return new Promise( function(resolve, reject) {
+
+            const wikiIndex = Stocks.find({type: 'wikiIndex'}).fetch();
+
+            // if dataset exists, it'll be at start (and only element) of array
+            if (!wikiIndex[0]) {
+                // if no dataset, warn
+                Bert.alert({
+                    title: 'Error: Ticker list not loaded',
+                    type: 'danger',
+                    message: 'Please provide a stock code!',
+                    style: 'growl-top-right',
+                    icon: 'fa-warning'
+                });
+                const errorCode = 'ERROR';
+                const errorMessage = 'No document of type wikiIndex';
+                var myError = new Meteor.Error(errorCode, errorMessage);
+                reject(myError);
+            } else if (wikiIndex[0].tickerList.indexOf(ticker) >= 0) {
+                resolve(true);
+            } else {
+                resolve(false);
+            }
+
+        });
     }
 
 });

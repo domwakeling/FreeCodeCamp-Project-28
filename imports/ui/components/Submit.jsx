@@ -7,9 +7,10 @@ export default class Submit extends React.Component {
     constructor(props) {
         super(props);
         this.submitStock = this.submitStock.bind(this);
+        this.checkTickerExists = this.checkTickerExists.bind(this);
     }
 
-    submitStock(e) {
+    async submitStock(e) {
         e.preventDefault();
         $('#searchbutton').blur();
         const stockCode = $('input[name=search]')[0].value;
@@ -22,8 +23,34 @@ export default class Submit extends React.Component {
                 icon: 'fa-warning'
             });
         } else {
-            Meteor.call('stocks.upsert', stockCode, 'Whatever');
+            this.checkTickerExists(stockCode).then(function(res) {
+                if (res) {
+                    Meteor.call('stocks.upsert', stockCode, 'Whatever');
+                } else {
+                    Bert.alert({
+                        title: 'Stock not recognised',
+                        type: 'danger',
+                        message: stockCode + '  is not a valid ticker!',
+                        style: 'growl-top-right',
+                        icon: 'fa-warning'
+                    });
+                }
+            }, function(err) {
+                console.log('ERROR:', err);
+            });
         }
+    }
+
+    async checkTickerExists(ticker) {
+        return new Promise( function(resolve, reject) {
+            Meteor.call('stocks.checkTickerExists', ticker, function(err, res) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(res);
+                }
+            });
+        });
     }
 
     render() {
