@@ -9,7 +9,6 @@
 import { Meteor } from 'meteor/meteor';
 import { HTTP } from 'meteor/http';
 
-// var apiCallGet = function(apiUrl, authToken, callback) {
 async function apiCallGet(apiUrl) {
 
     return new Promise( function(resolve, reject) {
@@ -18,7 +17,7 @@ async function apiCallGet(apiUrl) {
             var response = HTTP.call('GET', apiUrl).data;
             resolve(response);
         } catch (error) {
-            // console.log(error.data);
+            console.log(error.data);
             var errorCode, errorMessage = '';
             if (error.response) {
                 errorCode = error.response.data.code;
@@ -50,6 +49,41 @@ Meteor.methods({
             var apiUrl = baseUrl + dataset + cols + quandlKey;
 
             // var response = Meteor.wrapAsync(apiCallGet)(apiUrl);
+            var response = apiCallGet(apiUrl);
+            console.log('response is:', response);
+            resolve(response);
+            // next line ONLY here to prevent a linting error
+            reject(response);
+
+        });
+    },
+
+    'quandl.getStockHistory'(ticker) {
+
+        return new Promise(function(resolve, reject) {
+
+            // get date info to be able to sort through the last year
+            const today = new Date();
+            const currYear = today.getFullYear();
+            let currMonth = today.getMonth() + 1;
+            let currDay = today.getDate();
+            if (currMonth < 10) {
+                currMonth = '' + '0' + currMonth;
+            }
+            if (currDay < 10) {
+                currDay = '' + '0' + currDay;
+            }
+
+            // Construct the API URL
+            const baseUrl = 'https://www.quandl.com/api/v3/datatables/';
+            const dataset = 'WIKI/PRICES.json';
+            const dateGTE = '?date.gte=' + (currYear - 1) + currMonth + currDay;
+            const dateLTE = '&date.lte=' + currYear + currMonth + currDay;
+            const tickerQ = '&qopts.columns=date,close&ticker=' + ticker;
+            const qKey = '&api_key=' + Meteor.settings.quandlKey;
+            var apiUrl = baseUrl + dataset + dateGTE + dateLTE + tickerQ + qKey;
+            console.log(apiUrl);
+
             var response = apiCallGet(apiUrl);
             console.log('response is:', response);
             resolve(response);
