@@ -9,12 +9,19 @@ export default class Footer extends React.Component {
 
         return (
             <div className='footer'>
-                    <div className='text-centre'>
-                        &copy; {yearRange} &nbsp;
-                        <a href='mailto:info@domwakeling.com'>
-                            Dom Wakeling
-                        </a>
-                    </div>
+                <div className='text-centre'>Data provided by</div>
+                <a href='https://www.quandl.com' target='_offsite'>
+                    <img
+                        className='quandl-logo'
+                        src='/images/Quandl-logo.png'
+                    />
+                </a>
+                <div className='text-centre'>
+                    &copy; {yearRange} &nbsp;
+                    <a href='mailto:info@domwakeling.com'>
+                        Dom Wakeling
+                    </a>
+                </div>
             </div>
         );
     }

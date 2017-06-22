@@ -20,7 +20,7 @@ export default class Navbar extends React.Component {
 
                     <div className='container'>
                         <div className='brand'>
-                            <a href='/'>FCC27 Nightlife App</a>
+                            <a href='/'>FCC28 Stocks App</a>
                         </div>
 
                         <button

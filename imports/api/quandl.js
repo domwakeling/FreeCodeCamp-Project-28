@@ -50,7 +50,6 @@ Meteor.methods({
 
             // var response = Meteor.wrapAsync(apiCallGet)(apiUrl);
             var response = apiCallGet(apiUrl);
-            console.log('response is:', response);
             resolve(response);
             // next line ONLY here to prevent a linting error
             reject(response);
@@ -82,10 +81,8 @@ Meteor.methods({
             const tickerQ = '&qopts.columns=date,close&ticker=' + ticker;
             const qKey = '&api_key=' + Meteor.settings.quandlKey;
             var apiUrl = baseUrl + dataset + dateGTE + dateLTE + tickerQ + qKey;
-            console.log(apiUrl);
 
             var response = apiCallGet(apiUrl);
-            console.log('response is:', response);
             resolve(response);
             // next line ONLY here to prevent a linting error
             reject(response);
