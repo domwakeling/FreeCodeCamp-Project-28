@@ -17,16 +17,8 @@ async function apiCallGet(apiUrl) {
             var response = HTTP.call('GET', apiUrl).data;
             resolve(response);
         } catch (error) {
-            console.log(error.data);
-            var errorCode, errorMessage = '';
-            if (error.response) {
-                errorCode = error.response.data.code;
-                errorMessage = error.response.data.message;
-            // Otherwise use a generic error message
-            } else {
-                errorCode = 500;
-                errorMessage = 'Cannot access the API';
-            }
+            const errorCode = 500;
+            const errorMessage = 'Error accessing the API';
             // Create an Error object and return it via callback
             var myError = new Meteor.Error(errorCode, errorMessage);
             reject(myError);

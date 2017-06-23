@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { Bert } from 'meteor/themeteorchef:bert';
+import { Papa } from 'meteor/harrison:papa-parse';
 
 /*  Stocks are stored as documents with:
  *  - key ticker to their ticker shortcode
@@ -61,7 +62,20 @@ Meteor.methods({
 
         // if dataset exists, it'll be at start of resulting array
         if (!quandlWiki[0]) {
+
             // so if not, collect the data and store it
+            var fs = Npm.require('fs');
+            // fs.readFile(process.cwd() + '/WIKI-datasets-codes.csv', 'utf8', function (err, data) {
+            fs.readFile('../../programs/web.browser/app/WIKI-datasets-codes.csv', 'utf8', function (err, data) {
+                if (err) {
+                    console.log('Error: ' + err);
+                    return;
+                }
+
+                var parsed = Papa.parse(data);
+                console.log(parsed);
+            });
+
             Meteor.call('quandl.getWikiKeys', function(err, res) {
                 if (err) {
                     console.log('ERROR:', err);
