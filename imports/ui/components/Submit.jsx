@@ -30,13 +30,14 @@ export default class Submit extends React.Component {
             this.checkTickerExists(stockCode).then(
                 // handle a resolved promise
                 function(res) {
-                    // resolved means ticker exists and returns the text for it
                     Meteor.call('stocks.upsert', stockCode, res);
                     // then set the search bar to default again
                     $('input[name=search]')[0].value = '';
                 },
                 // handle a rejected promise
-                function() {
+                function(err) {
+                    console.log(err);
+                    // console.log('Trying to reject');
                     Bert.alert({
                         title: 'Stock not recognised',
                         type: 'danger',

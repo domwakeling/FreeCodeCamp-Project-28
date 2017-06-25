@@ -61,9 +61,13 @@ Meteor.methods({
             const selected = WikiCodes.find({ticker: wikiTicker}).fetch();
 
             // if ticker exists, it'll be at start (and only element) of array
-            if (!selected || !selected[0]) {
-                reject();
+            if (selected.length === 0) {
+                const errorCode = 999;
+                const errorMessage = 'Ticker not found in index';
+                var myError = new Meteor.Error(errorCode, errorMessage);
+                reject(myError);
             } else {
+                console.log('Starting to resolve in callback');
                 resolve(selected[0]['text']);
             }
 
