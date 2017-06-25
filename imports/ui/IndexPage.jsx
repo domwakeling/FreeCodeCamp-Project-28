@@ -4,6 +4,7 @@ import Layout from './components/Layout.jsx';
 import { createContainer } from 'meteor/react-meteor-data';
 // import { Meteor } from 'meteor/meteor';
 import { Stocks } from '/imports/api/stocks.js';
+import StockChart from './components/StockChart.jsx';
 import Submit from './components/Submit.jsx';
 import StockBox from './components/Stock.jsx';
 // import Search from './components/Search.jsx';
@@ -29,8 +30,12 @@ class IndexPage extends React.Component {
     }
 
     render() {
+        const chartWidth = $('#chartContainer').width();
         return (
             <Layout>
+                <div id='chartContainer'>
+                    <StockChart cWidth={chartWidth}/>
+                </div>
                 <Submit />
                 <div className='stockbox-container'>
                     <div className='stockbox-flex'>

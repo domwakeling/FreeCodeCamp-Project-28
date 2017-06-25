@@ -21,8 +21,11 @@ export const Stocks = new Mongo.Collection('stocks');
 Meteor.methods({
 
     async 'stocks.upsert'(ticker, text) {
-        const idx = text.indexOf('(' + ticker);
-        const textToUse = idx > 0 ? text.substr(0, idx) : 'No description';
+        var textToUse = '';
+        if (text !== '') {
+            const idx = text.indexOf('(' + ticker);
+            textToUse = idx > 0 ? text.substr(0, idx) : 'No description';
+        }
         // var textToUse = text
         Meteor.call('quandl.getStockHistory', ticker, function(err, res) {
             if (err && Meteor.isServer) {
@@ -30,16 +33,17 @@ Meteor.methods({
             } else if (Meteor.isServer) {
                 const dateArray = res.datatable.data.map((arr) => arr[0]);
                 const valsArray = res.datatable.data.map((arr) => arr[1]);
+                var updateSet = {
+                    lastUpdated: new Date(),
+                    closeValues: valsArray,
+                    closeDates: dateArray
+                };
+                if (textToUse !== '') {
+                    updateSet['text'] = textToUse;
+                }
                 Stocks.update(
                     {ticker: ticker},
-                    {$set: {
-                        text: textToUse,
-                        lastUpdated: new Date(),
-                        closeValues: valsArray,
-                        closeDates: dateArray
-                        // type: 'stock'
-                        }
-                    },
+                    {$set: updateSet},
                     {upsert: true}
                 );
             }
