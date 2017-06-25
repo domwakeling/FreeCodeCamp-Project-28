@@ -33,7 +33,8 @@
     "$": true,
     "ga": true,
     "jQuery": true,
-    "router": true
+    "router": true,
+    "Npm": true
   },
   "rules": {
     "block-scoped-var": 0,

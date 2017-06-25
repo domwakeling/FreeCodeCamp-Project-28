@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { Bert } from 'meteor/themeteorchef:bert';
-import { Papa } from 'meteor/harrison:papa-parse';
 
 /*  Stocks are stored as documents with:
  *  - key ticker to their ticker shortcode
@@ -9,9 +8,6 @@ import { Papa } from 'meteor/harrison:papa-parse';
  *  - key closeValues storing the values timeline from previous year
  *  - key closeDates storing the dates associated with the closeValues
  *  - key type with a value 'stock'
- *
- *  There is also a document with type 'wikiIndex' which stores all possible
- *  keys in the WIKI set at Quandl; these are in the tickerList property
  */
 
 export const Stocks = new Mongo.Collection('stocks');
@@ -51,49 +47,6 @@ Meteor.methods({
         Stocks.remove(
             {ticker: ticker},
         );
-    },
-
-    'stocks.ensureQuandlWikiExists'() {
-
-        // get the dataset as stored (or 'undefined')
-        const quandlWiki = Stocks.find(
-            {type: 'wikiIndex'}
-        ).fetch();
-
-        // if dataset exists, it'll be at start of resulting array
-        if (!quandlWiki[0]) {
-
-            // so if not, collect the data and store it
-            var fs = Npm.require('fs');
-            // fs.readFile(process.cwd() + '/WIKI-datasets-codes.csv', 'utf8', function (err, data) {
-            fs.readFile('../../programs/web.browser/app/WIKI-datasets-codes.csv', 'utf8', function (err, data) {
-                if (err) {
-                    console.log('Error: ' + err);
-                    return;
-                }
-
-                var parsed = Papa.parse(data);
-                console.log(parsed);
-            });
-
-            Meteor.call('quandl.getWikiKeys', function(err, res) {
-                if (err) {
-                    console.log('ERROR:', err);
-                } else {
-                    console.log('Processing dataset');
-                    const dataArray = res.datatable.data.map((arr) => arr[0]);
-                    Stocks.update(
-                        {type: 'wikiIndex'},
-                        {$set: {
-                            tickerList: dataArray
-                            }
-                        },
-                        {upsert: true}
-                    );
-                    console.log('Dataset processed and stored');
-                }
-            });
-        }
     },
 
     'stocks.checkTickerExists'(ticker) {
