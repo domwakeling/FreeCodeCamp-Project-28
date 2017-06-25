@@ -37,12 +37,29 @@
     }
 
     .stockbox-cancel {
+        @include btn;
+        border-radius: 50%;
+        color: #eee;
+        background-color: $color__project-theme;
         float: right;
-        margin-top: $structure__font-pad-horiz;
-        width: 1.3em;
-        height: 1.3em;
-        font-size: 1.0em;
+        // margin-top: $structure__font-pad-horiz / 2;
+        @include font__body-font;
+        font-size: 1.2em;
+        font-weight: bold;
         padding: 0;
+        &:hover {
+            color: $color__mid-grey;
+        }
+
+        // display: inline-block;
+        // margin-left: $structure__font-pad_horiz;
+
+    }
+
+    .stockbox-detail {
+        font-size: 0.8em;
+        font-style: italic;
+        padding-bottom: $structure__font-pad_horiz / 2;
     }
 
 }

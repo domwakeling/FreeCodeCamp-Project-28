@@ -20,7 +20,11 @@ class IndexPage extends React.Component {
 
     renderCollection() {
         return this.props.stocks.map((entry, idx) => (
-            <StockBox displayName={entry.ticker} key={idx} />
+            <StockBox
+                displayName={entry.ticker}
+                displayText={entry.text}
+                key={idx}
+            />
         ));
     }
 
@@ -49,6 +53,6 @@ IndexPage.propTypes = {
 // Wrap the component in a createContainer component, so data can be rendered
 export default createContainer(() => {
     return {
-        stocks: Stocks.find({type: 'stock'}).fetch()
+        stocks: Stocks.find({}).fetch()
     };
 }, IndexPage);

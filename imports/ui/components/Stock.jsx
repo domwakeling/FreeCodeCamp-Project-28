@@ -14,18 +14,19 @@ export default class StockBox extends React.Component {
         return (
             <div className='stockbox'>
                 <button
-                    className='round-button btn-cancel stockbox-cancel'
+                    className='stockbox-cancel'
                     onClick={this.boundCancelClicked}
                     >
                     &times;
                 </button>
                 <h5 className='stockbox-name'>{this.props.displayName}</h5>
-                <p className='stockbox-detail'>this to be done</p>
+                <p className='stockbox-detail'>{this.props.displayText}</p>
             </div>
         );
     }
 }
 
 StockBox.propTypes = {
-    displayName: PropTypes.string
+    displayName: PropTypes.string,
+    displayText: PropTypes.string
 };

@@ -13,7 +13,7 @@ Meteor.methods({
 
     async 'wiki.ensureWikiIndexExists'() {
 
-        // get the dataset as stored (or 'undefined')
+        // get the length of the dataset as stored (or 'undefined')
         const numCodes = WikiCodes.find({}).count();
 
         // if dataset is empty, populate it ...
@@ -29,7 +29,7 @@ Meteor.methods({
                 } else {
                     console.log('Processing dataset');
                     wrapPapaParse(data).then(function(res) {
-                        // resolve callback - format data and inert it
+                        // resolve callback - format data and insert it
                         const dataArray = res.map((arr) => (
                             {ticker: arr[0], text: arr[1]}
                         ));
@@ -42,10 +42,8 @@ Meteor.methods({
                     });
                 }
             });
-
         }
     }
-
 });
 
 // async function wrapping up a Papa.parse to avoid non-Fiber issues

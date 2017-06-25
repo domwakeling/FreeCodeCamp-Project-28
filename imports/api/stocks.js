@@ -1,13 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { Bert } from 'meteor/themeteorchef:bert';
+import { WikiCodes} from './wiki.js';
 
 /*  Stocks are stored as documents with:
  *  - key ticker to their ticker shortcode
  *  - key lastUpdated storing the date() this was last upserted
  *  - key closeValues storing the values timeline from previous year
  *  - key closeDates storing the dates associated with the closeValues
- *  - key type with a value 'stock'
  */
 
 export const Stocks = new Mongo.Collection('stocks');
@@ -21,7 +20,10 @@ export const Stocks = new Mongo.Collection('stocks');
 
 Meteor.methods({
 
-    async 'stocks.upsert'(ticker) {
+    async 'stocks.upsert'(ticker, text) {
+        const idx = text.indexOf('(' + ticker);
+        const textToUse = idx > 0 ? text.substr(0, idx) : 'No description';
+        // var textToUse = text
         Meteor.call('quandl.getStockHistory', ticker, function(err, res) {
             if (err && Meteor.isServer) {
                 console.log('ERROR:', err);
@@ -31,10 +33,11 @@ Meteor.methods({
                 Stocks.update(
                     {ticker: ticker},
                     {$set: {
+                        text: textToUse,
                         lastUpdated: new Date(),
                         closeValues: valsArray,
-                        closeDates: dateArray,
-                        type: 'stock'
+                        closeDates: dateArray
+                        // type: 'stock'
                         }
                     },
                     {upsert: true}
@@ -49,30 +52,19 @@ Meteor.methods({
         );
     },
 
-    'stocks.checkTickerExists'(ticker) {
+    async 'stocks.checkTickerExists'(ticker) {
 
         return new Promise( function(resolve, reject) {
 
-            const wikiIndex = Stocks.find({type: 'wikiIndex'}).fetch();
+            const wikiTicker = 'WIKI/' + ticker;
 
-            // if dataset exists, it'll be at start (and only element) of array
-            if (!wikiIndex[0]) {
-                // if no dataset, warn
-                Bert.alert({
-                    title: 'Error: Ticker list not loaded',
-                    type: 'danger',
-                    message: 'Please provide a stock code!',
-                    style: 'growl-top-right',
-                    icon: 'fa-warning'
-                });
-                const errorCode = 'ERROR';
-                const errorMessage = 'No document of type wikiIndex';
-                var myError = new Meteor.Error(errorCode, errorMessage);
-                reject(myError);
-            } else if (wikiIndex[0].tickerList.indexOf(ticker) >= 0) {
-                resolve(true);
+            const selected = WikiCodes.find({ticker: wikiTicker}).fetch();
+
+            // if ticker exists, it'll be at start (and only element) of array
+            if (!selected || !selected[0]) {
+                reject();
             } else {
-                resolve(false);
+                resolve(selected[0]['text']);
             }
 
         });

@@ -29,26 +29,6 @@ async function apiCallGet(apiUrl) {
 
 Meteor.methods({
 
-    // 'quandl.getWikiKeys'() {
-    //
-    //     return new Promise(function(resolve, reject) {
-    //
-    //         // Construct the API URL
-    //         const quandlKey = '&api_key=' + Meteor.settings.quandlKey;
-    //         const baseUrl = 'https://www.quandl.com/api/v3/datatables/';
-    //         const dataset = 'WIKI/PRICES.json';
-    //         const cols = '?qopts.columns=ticker&date=20160912';
-    //         var apiUrl = baseUrl + dataset + cols + quandlKey;
-    //
-    //         // var response = Meteor.wrapAsync(apiCallGet)(apiUrl);
-    //         var response = apiCallGet(apiUrl);
-    //         resolve(response);
-    //         // next line ONLY here to prevent a linting error
-    //         reject(response);
-    //
-    //     });
-    // },
-
     'quandl.getStockHistory'(ticker) {
 
         return new Promise(function(resolve, reject) {
