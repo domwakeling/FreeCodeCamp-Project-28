@@ -67,13 +67,12 @@ export default class Submit extends React.Component {
         return (
             <div>
                 <div className='space-top' />
-                <h2 className='text-centre'>Enter a stock code</h2>
                 <form className='searchbox-form'>
                     <div className='field field-is-search'>
                         <input
                             className='searchbox-text'
                             name='search'
-                            placeholder='What stock are you interested in?'
+                            placeholder='Enter a ticker code'
                             type='search'
                         />
 

@@ -22,6 +22,6 @@ export default class Layout extends React.Component {
 
 // Prevent eslint error report by declaring props
 Layout.propTypes = {
-    // children: PropTypes.array
+
     children: PropTypes.array
 };

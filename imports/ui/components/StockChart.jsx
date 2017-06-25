@@ -11,7 +11,6 @@ class StockChart extends React.Component {
         super(props);
         this.ensureAllStocksUpdated = this.ensureAllStocksUpdated.bind(this);
         this.getStockClosedDates = this.getStockClosedDates.bind(this);
-        this.getStockDataSets = this.getStockDataSets.bind(this);
     }
 
     // check if stocks were updated in last 12 hours
@@ -30,66 +29,43 @@ class StockChart extends React.Component {
 
     // get the close dates of first stock, to use as labels
     getStockClosedDates() {
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         if (this.props.stocks.length > 0) {
-            console.log(this.props.stocks[0].closeDates);
-            return this.props.stocks[0].closeDates;
+            return this.props.stocks[0].closeDates.map(function(date) {
+                date = date.split('-');
+                date = [date[2], months[parseInt(date[1] - 1, 10)], date[0]];
+                return date.join(' ');
+            });
         } else {
             return [];
         }
     }
 
-    // get the datasets ...
-    getStockDataSets() {
-        var ret = [];
-        this.props.stocks.forEach(function(stock) {
-            var temp = {label: stock.ticker};
-            temp['data'] = stock.closeValues;
-            ret.push(temp);
-        });
-        console.log(ret);
-        return ret;
-    }
-
     render() {
 
         this.ensureAllStocksUpdated();
-        // var boundGetStockDataSets = this.getStockDataSets.bind(this);
+
+        const colors = ['rgba(120,194,30,1.0)', 'rgba(0,95,139,1.0)',
+                        'rgba(242,150,38,1.0)'];
 
         const labels = this.getStockClosedDates();
-        // const datasets = this.getStockDataSets();
 
         var data = {
             labels: labels,
-            datasets: this.props.stocks.map(function(stock) {
-                return {data: stock.closeValues, label: stock.ticker};
+            datasets: this.props.stocks.map(function(stock, idxS) {
+                return {
+                    data: stock.closeValues.map(function(val, idx, values) {
+                        return ((val / values[0] - 1) * 100).toFixed(2);
+                    }),
+                    label: stock.ticker,
+                    fill: false,
+                    borderDash: [2 * Math.floor(idxS / colors.length)],
+                    pointStyle: 'line',
+                    backgroundColor: 'rgba(220,220,220,0.0)',
+                    borderColor: colors[idxS % colors.length]
+                };
             })
-                // data: this.props.stocks.map((stock) => {
-                //     return stock.closeValues;
-                // })
-                // labels: this.props.stocks.map((stock) => {
-                //     return stock.ticker;
-                // })
-            // }]
-            // labels: ['Red', 'Blue', 'Green'],
-            // datasets: {datasets}
-            // datasets: {boundGetStockDataSets}
-            // datasets: [{label: 'sommet', data: [1, 2, 3]}]
-            // datasets: [{
-            //     label: '# of Votes',
-            //     data: [12, 19, 13, 15, 12, 13],
-            //     strokeColor: 'rgba(220,220,220,1)',
-            //     fillColor: [
-            //     'rgba(0, 95, 139, 0.0)'
-            //     ]
-            // },
-            // {
-            //     label: '# of Votes',
-            //     data: [10, 14, 16, 17, 18, 11],
-            //     strokeColor: 'rgba(220,0,220,1)'
-            //     // fillColor: [
-            //     // 'rgba(0, 95, 139, 0.5)'
-            //     // ]
-            // }]
         };
         var options = {
             responsive: true,
@@ -97,22 +73,36 @@ class StockChart extends React.Component {
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: false
+                        beginAtZero: false,
+                        callback: function(value) {
+                            return '' + value.toFixed(0) + '%';
+                        }
                     }
-                }]
+                }],
+                tooltips: {
+                    callbacks: {
+                        // yLabel: function(value) {
+                        //     return '' + (value * 100).toFixed(1) + '%';
+                        // }
+                        label: function(tooltipItem, data) {
+        var label = data.labels[tooltipItem.index];
+        // var datasetLabel = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+        // return label + ': ' + datasetLabel + '%';
+        return label;
+      }
+                    }
+                }
             }
         };
-        console.log(data);
-            return (
-                <Line
-                        data={data}
-                        height={300}
-                        options={options}
-                        width={400}
-                />
-                );
+        return (
+            <Line
+                data={data}
+                height={300}
+                options={options}
+                width={400}
+            />
+        );
     }
-
 }
 
 StockChart.propTypes = {

@@ -11,12 +11,12 @@ import { WikiCodes} from './wiki.js';
 
 export const Stocks = new Mongo.Collection('stocks');
 
-// if (Meteor.isServer) {
-//   // This code only runs on the server
-//   Meteor.publish('stocks', function tasksPublication() {
-//     return Stocks.find();
-//   });
-// }
+if (Meteor.isServer) {
+  // This code only runs on the server
+  Meteor.publish('stocks', function tasksPublication() {
+    return Stocks.find();
+  });
+}
 
 Meteor.methods({
 
